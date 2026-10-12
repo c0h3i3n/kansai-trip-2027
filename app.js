@@ -2,12 +2,14 @@ const KEY = 'kansai-winter-2027-v1';
 let state = {checks:{},budget:{},rate:'',notes:''};
 let storageOK = true;
 try { const saved=JSON.parse(localStorage.getItem(KEY)||'null'); if(saved&&typeof saved==='object') { for(const k of ['checks','budget']) if(saved[k]&&typeof saved[k]==='object') state[k]=saved[k]; for(const k of ['rate','notes']) if(typeof saved[k]==='string') state[k]=saved[k]; } } catch { storageOK=false; }
+// Keep any saved APA amount in its original JPY key; new TWD input has a separate key.
+state.budget={apa_twd:'9079',car:'38940',...state.budget};
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state));return true;}catch{storageOK=false;return false;}}
 const $ = id=>document.getElementById(id);
 const fmt = n=>new Intl.NumberFormat('zh-TW',{maximumFractionDigits:0}).format(n);
 const valid = v=>typeof v==='string'&&v.trim()!==''&&Number.isFinite(Number(v))&&Number(v)>=0;
-function totals(){let jpy=0,twd=0,count=0,jpyCount=0;for(const k of ['flight','airbnb','mimaru','apa','car','road','ski','train','food']){const v=state.budget[k];if(valid(v)){count++;if(k==='flight')twd+=Number(v);else{jpy+=Number(v);jpyCount++;}}}const r=Number(state.rate);return{jpy,twd,count,text:!count?'尚未填寫':(jpyCount===0||Number.isFinite(r)&&r>0)?'NT$ '+fmt(twd+jpy*(r||0)):'請填入換算匯率'};}
-function renderBudget(){const t=totals();if($('budget-total')){$('budget-total').textContent=t.text;$('budget-count').textContent=t.count+' / 9 項已填寫';$('currency-totals').textContent=t.count?'已填金額：JPY '+fmt(t.jpy)+' + TWD '+fmt(t.twd):'尚未填寫金額';}if($('home-total')){$('home-total').textContent=t.text;$('home-total-note').textContent=t.count?t.count+' / 9 項已填寫 · 僅本機紀錄':'不將未知金額視為 0 元';}}
+function totals(){let jpy=0,twd=0,count=0,jpyCount=0;for(const k of ['flight','airbnb','mimaru','apa_twd','car','road','ski','train','food']){const v=state.budget[k];if(valid(v)){count++;if(k==='flight'||k==='apa_twd')twd+=Number(v);else{jpy+=Number(v);jpyCount++;}}}const r=Number(state.rate);return{jpy,twd,count,text:!count?'尚未填寫':(jpyCount===0||Number.isFinite(r)&&r>0)?'NT$ '+fmt(twd+jpy*(r||0)):'請填入換算匯率'};}
+function renderBudget(){const t=totals();if($('budget-total')){$('budget-total').textContent=t.text;$('budget-count').textContent=t.count+' / 9 項已填寫';$('currency-totals').textContent=t.count?'已填金額：JPY '+fmt(t.jpy)+' + TWD '+fmt(t.twd):'尚未填寫金額';}if($('home-total')){$('home-total').textContent=t.text;$('home-total-note').textContent=t.count?'JPY '+fmt(t.jpy)+' + TWD '+fmt(t.twd)+' · '+t.count+' / 9 項（含約數）':'不將未知金額視為 0 元';}}
 const boxes=[...document.querySelectorAll('[data-check]')];
 function renderChecks(){const n=boxes.filter(x=>x.checked).length;if($('check-count'))$('check-count').textContent=n+' / '+boxes.length;if($('check-progress')){$('check-progress').value=n;$('check-progress').max=boxes.length;}}
 boxes.forEach(el=>{el.checked=state.checks[el.dataset.check]===true;el.addEventListener('change',()=>{state.checks[el.dataset.check]=el.checked;const ok=save();renderChecks();if(!ok)$('storage-info').textContent='瀏覽器無法保存資料；本次勾選將在離開頁面後遺失。';});});

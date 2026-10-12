@@ -1,0 +1,48 @@
+[
+  {
+    "day": 1,
+    "file": "kansai-airport.jpg",
+    "title": "關西國際機場",
+    "author": "mackwo7",
+    "page": "https://commons.wikimedia.org/wiki/File:KIX_airport.jpg",
+    "date": "2016-05-01",
+    "w": 1920,
+    "h": 1080,
+    "caption": "抵達關西，旅程開始。",
+    "note": "2016 年機場實景，非本次搭乘機型。",
+    "changes": "原檔；頁面依比例裁切顯示。",
+    "license": "CC0-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  {
+    "day": null,
+    "file": "lake-biwa.jpg",
+    "title": "滋賀・琵琶湖",
+    "author": "先従隗始",
+    "page": "https://commons.wikimedia.org/wiki/File:Lake_Biwa_20210406_01.jpg",
+    "date": "2021-04-06",
+    "w": 1280,
+    "h": 960,
+    "caption": "湖與山之間的滋賀。",
+    "note": "4 月的滋賀區域配圖；非住宿窗景、雪場實景或本次天候。",
+    "changes": "採用 Commons 1280px 縮圖；頁面依比例裁切顯示。",
+    "license": "CC0-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "placement": "details.html#airbnb · 滋賀區域配圖"
+  },
+  {
+    "day": 6,
+    "file": "kyoto-station.jpg",
+    "title": "京都站",
+    "author": "EXECUTOR",
+    "page": "https://commons.wikimedia.org/wiki/File:Ky%C5%8Dto_Station.jpg",
+    "date": "2017-09-02",
+    "w": 1440,
+    "h": 1067,
+    "caption": "住到京都站附近，慢慢收尾。",
+    "note": "2017 年 9 月車站外觀，非住宿照片。",
+    "changes": "縮至 1440px 並壓縮；頁面依比例裁切顯示。",
+    "license": "CC0-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+]
